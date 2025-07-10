@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './DTO/create-user-dto';
@@ -33,7 +34,7 @@ export class UserController {
 
   @Post()
   create(
-    @Body()
+    @Body(ValidationPipe)
     createUserDto: CreateUserDto,
   ) {
     return this.usersService.create(createUserDto);
@@ -42,7 +43,7 @@ export class UserController {
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body()
+    @Body(ValidationPipe)
     updateUserDto: UpdateUserDto,
   ) {
     return this.usersService.update(id, updateUserDto);
